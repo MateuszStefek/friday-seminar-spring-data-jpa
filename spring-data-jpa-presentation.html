@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>Introduction to Spring Data JPA</title>
+    <link rel="stylesheet" type="text/css" media="screen, projection, print"
+          href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css"/>
+
+
+    <link rel="stylesheet" type="text/css" media="screen, projection, print"
+          href="http://www.w3.org/Talks/Tools/Slidy2/styles/w3c-blue.css"/>
+
+    <style type="text/css">
+
+div.slide h1 {
+  line-height: 2.1em;
+}
+
+/*
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
+}
+
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
+}
+
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
+}
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta-string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.code-blocks {
+	display: flex;
+	flex-wrap:wrap;
+	align-items:flex-start
+}
+
+
+    </style>
+
+    <script type="text/javascript"><!--//--><![CDATA[//><!--
+    /*! highlight.js v9.12.0 | BSD3 License | git.io/hljslicense */
+!function(e){var n="object"==typeof window&&window||"object"==typeof self&&self;"undefined"!=typeof exports?e(exports):n&&(n.hljs=e({}),"function"==typeof define&&define.amd&&define([],function(){return n.hljs}))}(function(e){function n(e){return e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function t(e){return e.nodeName.toLowerCase()}function r(e,n){var t=e&&e.exec(n);return t&&0===t.index}function a(e){return k.test(e)}function i(e){var n,t,r,i,o=e.className+" ";if(o+=e.parentNode?e.parentNode.className:"",t=B.exec(o))return w(t[1])?t[1]:"no-highlight";for(o=o.split(/\s+/),n=0,r=o.length;r>n;n++)if(i=o[n],a(i)||w(i))return i}function o(e){var n,t={},r=Array.prototype.slice.call(arguments,1);for(n in e)t[n]=e[n];return r.forEach(function(e){for(n in e)t[n]=e[n]}),t}function u(e){var n=[];return function r(e,a){for(var i=e.firstChild;i;i=i.nextSibling)3===i.nodeType?a+=i.nodeValue.length:1===i.nodeType&&(n.push({event:"start",offset:a,node:i}),a=r(i,a),t(i).match(/br|hr|img|input/)||n.push({event:"stop",offset:a,node:i}));return a}(e,0),n}function c(e,r,a){function i(){return e.length&&r.length?e[0].offset!==r[0].offset?e[0].offset<r[0].offset?e:r:"start"===r[0].event?e:r:e.length?e:r}function o(e){function r(e){return" "+e.nodeName+'="'+n(e.value).replace('"',"&quot;")+'"'}s+="<"+t(e)+E.map.call(e.attributes,r).join("")+">"}function u(e){s+="</"+t(e)+">"}function c(e){("start"===e.event?o:u)(e.node)}for(var l=0,s="",f=[];e.length||r.length;){var g=i();if(s+=n(a.substring(l,g[0].offset)),l=g[0].offset,g===e){f.reverse().forEach(u);do c(g.splice(0,1)[0]),g=i();while(g===e&&g.length&&g[0].offset===l);f.reverse().forEach(o)}else"start"===g[0].event?f.push(g[0].node):f.pop(),c(g.splice(0,1)[0])}return s+n(a.substr(l))}function l(e){return e.v&&!e.cached_variants&&(e.cached_variants=e.v.map(function(n){return o(e,{v:null},n)})),e.cached_variants||e.eW&&[o(e)]||[e]}function s(e){function n(e){return e&&e.source||e}function t(t,r){return new RegExp(n(t),"m"+(e.cI?"i":"")+(r?"g":""))}function r(a,i){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var o={},u=function(n,t){e.cI&&(t=t.toLowerCase()),t.split(" ").forEach(function(e){var t=e.split("|");o[t[0]]=[n,t[1]?Number(t[1]):1]})};"string"==typeof a.k?u("keyword",a.k):x(a.k).forEach(function(e){u(e,a.k[e])}),a.k=o}a.lR=t(a.l||/\w+/,!0),i&&(a.bK&&(a.b="\\b("+a.bK.split(" ").join("|")+")\\b"),a.b||(a.b=/\B|\b/),a.bR=t(a.b),a.e||a.eW||(a.e=/\B|\b/),a.e&&(a.eR=t(a.e)),a.tE=n(a.e)||"",a.eW&&i.tE&&(a.tE+=(a.e?"|":"")+i.tE)),a.i&&(a.iR=t(a.i)),null==a.r&&(a.r=1),a.c||(a.c=[]),a.c=Array.prototype.concat.apply([],a.c.map(function(e){return l("self"===e?a:e)})),a.c.forEach(function(e){r(e,a)}),a.starts&&r(a.starts,i);var c=a.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([a.tE,a.i]).map(n).filter(Boolean);a.t=c.length?t(c.join("|"),!0):{exec:function(){return null}}}}r(e)}function f(e,t,a,i){function o(e,n){var t,a;for(t=0,a=n.c.length;a>t;t++)if(r(n.c[t].bR,e))return n.c[t]}function u(e,n){if(r(e.eR,n)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?u(e.parent,n):void 0}function c(e,n){return!a&&r(n.iR,e)}function l(e,n){var t=N.cI?n[0].toLowerCase():n[0];return e.k.hasOwnProperty(t)&&e.k[t]}function p(e,n,t,r){var a=r?"":I.classPrefix,i='<span class="'+a,o=t?"":C;return i+=e+'">',i+n+o}function h(){var e,t,r,a;if(!E.k)return n(k);for(a="",t=0,E.lR.lastIndex=0,r=E.lR.exec(k);r;)a+=n(k.substring(t,r.index)),e=l(E,r),e?(B+=e[1],a+=p(e[0],n(r[0]))):a+=n(r[0]),t=E.lR.lastIndex,r=E.lR.exec(k);return a+n(k.substr(t))}function d(){var e="string"==typeof E.sL;if(e&&!y[E.sL])return n(k);var t=e?f(E.sL,k,!0,x[E.sL]):g(k,E.sL.length?E.sL:void 0);return E.r>0&&(B+=t.r),e&&(x[E.sL]=t.top),p(t.language,t.value,!1,!0)}function b(){L+=null!=E.sL?d():h(),k=""}function v(e){L+=e.cN?p(e.cN,"",!0):"",E=Object.create(e,{parent:{value:E}})}function m(e,n){if(k+=e,null==n)return b(),0;var t=o(n,E);if(t)return t.skip?k+=n:(t.eB&&(k+=n),b(),t.rB||t.eB||(k=n)),v(t,n),t.rB?0:n.length;var r=u(E,n);if(r){var a=E;a.skip?k+=n:(a.rE||a.eE||(k+=n),b(),a.eE&&(k=n));do E.cN&&(L+=C),E.skip||(B+=E.r),E=E.parent;while(E!==r.parent);return r.starts&&v(r.starts,""),a.rE?0:n.length}if(c(n,E))throw new Error('Illegal lexeme "'+n+'" for mode "'+(E.cN||"<unnamed>")+'"');return k+=n,n.length||1}var N=w(e);if(!N)throw new Error('Unknown language: "'+e+'"');s(N);var R,E=i||N,x={},L="";for(R=E;R!==N;R=R.parent)R.cN&&(L=p(R.cN,"",!0)+L);var k="",B=0;try{for(var M,j,O=0;;){if(E.t.lastIndex=O,M=E.t.exec(t),!M)break;j=m(t.substring(O,M.index),M[0]),O=M.index+j}for(m(t.substr(O)),R=E;R.parent;R=R.parent)R.cN&&(L+=C);return{r:B,value:L,language:e,top:E}}catch(T){if(T.message&&-1!==T.message.indexOf("Illegal"))return{r:0,value:n(t)};throw T}}function g(e,t){t=t||I.languages||x(y);var r={r:0,value:n(e)},a=r;return t.filter(w).forEach(function(n){var t=f(n,e,!1);t.language=n,t.r>a.r&&(a=t),t.r>r.r&&(a=r,r=t)}),a.language&&(r.second_best=a),r}function p(e){return I.tabReplace||I.useBR?e.replace(M,function(e,n){return I.useBR&&"\n"===e?"<br>":I.tabReplace?n.replace(/\t/g,I.tabReplace):""}):e}function h(e,n,t){var r=n?L[n]:t,a=[e.trim()];return e.match(/\bhljs\b/)||a.push("hljs"),-1===e.indexOf(r)&&a.push(r),a.join(" ").trim()}function d(e){var n,t,r,o,l,s=i(e);a(s)||(I.useBR?(n=document.createElementNS("http://www.w3.org/1999/xhtml","div"),n.innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n")):n=e,l=n.textContent,r=s?f(s,l,!0):g(l),t=u(n),t.length&&(o=document.createElementNS("http://www.w3.org/1999/xhtml","div"),o.innerHTML=r.value,r.value=c(t,u(o),l)),r.value=p(r.value),e.innerHTML=r.value,e.className=h(e.className,s,r.language),e.result={language:r.language,re:r.r},r.second_best&&(e.second_best={language:r.second_best.language,re:r.second_best.r}))}function b(e){I=o(I,e)}function v(){if(!v.called){v.called=!0;var e=document.querySelectorAll("pre code");E.forEach.call(e,d)}}function m(){addEventListener("DOMContentLoaded",v,!1),addEventListener("load",v,!1)}function N(n,t){var r=y[n]=t(e);r.aliases&&r.aliases.forEach(function(e){L[e]=n})}function R(){return x(y)}function w(e){return e=(e||"").toLowerCase(),y[e]||y[L[e]]}var E=[],x=Object.keys,y={},L={},k=/^(no-?highlight|plain|text)$/i,B=/\blang(?:uage)?-([\w-]+)\b/i,M=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,C="</span>",I={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0};return e.highlight=f,e.highlightAuto=g,e.fixMarkup=p,e.highlightBlock=d,e.configure=b,e.initHighlighting=v,e.initHighlightingOnLoad=m,e.registerLanguage=N,e.listLanguages=R,e.getLanguage=w,e.inherit=o,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\b/},e.C=function(n,t,r){var a=e.inherit({cN:"comment",b:n,e:t,c:[]},r||{});return a.c.push(e.PWM),a.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),a},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e.METHOD_GUARD={b:"\\.\\s*"+e.UIR,r:0},e});hljs.registerLanguage("java",function(e){var a="[À-ʸa-zA-Z_$][À-ʸa-zA-Z_$0-9]*",t=a+"(<"+a+"(\\s*,\\s*"+a+")*>)?",r="false synchronized int abstract float private char boolean static null if const for true while long strictfp finally protected import native final void enum else break transient catch instanceof byte super volatile case assert short package default double public try this switch continue throws protected public private module requires exports do",s="\\b(0[bB]([01]+[01_]+[01]+|[01]+)|0[xX]([a-fA-F0-9]+[a-fA-F0-9_]+[a-fA-F0-9]+|[a-fA-F0-9]+)|(([\\d]+[\\d_]+[\\d]+|[\\d]+)(\\.([\\d]+[\\d_]+[\\d]+|[\\d]+))?|\\.([\\d]+[\\d_]+[\\d]+|[\\d]+))([eE][-+]?\\d+)?)[lLfF]?",c={cN:"number",b:s,r:0};return{aliases:["jsp"],k:r,i:/<\/|#/,c:[e.C("/\\*\\*","\\*/",{r:0,c:[{b:/\w+@/,r:0},{cN:"doctag",b:"@[A-Za-z]+"}]}),e.CLCM,e.CBCM,e.ASM,e.QSM,{cN:"class",bK:"class interface",e:/[{;=]/,eE:!0,k:"class interface",i:/[:"\[\]]/,c:[{bK:"extends implements"},e.UTM]},{bK:"new throw return else",r:0},{cN:"function",b:"("+t+"\\s+)+"+e.UIR+"\\s*\\(",rB:!0,e:/[{;=]/,eE:!0,k:r,c:[{b:e.UIR+"\\s*\\(",rB:!0,r:0,c:[e.UTM]},{cN:"params",b:/\(/,e:/\)/,k:r,r:0,c:[e.ASM,e.QSM,e.CNM,e.CBCM]},e.CLCM,e.CBCM]},c,{cN:"meta",b:"@[A-Za-z]+"}]}});
+//--><!]]>
+    </script>
+
+
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+            charset="utf-8" type="text/javascript"></script>
+
+
+    <style type="text/css">
+    <!-- your custom style rules --> 
+
+    </style>
+</head>
+<body>
+
+<div class="background">
+    <img id="head-icon" alt="graphic with four colored squares"
+         src="http://www.w3.org/Talks/Tools/Slidy2/graphics/icon-blue.png"/>
+    <object id="head-logo" title="W3C logo" type="image/svg+xml"
+            data="http://www.w3.org/Talks/Tools/Slidy2/graphics/w3c-logo-white.svg"><img
+            src="http://www.w3.org/Talks/Tools/Slidy2/graphics/w3c-logo-white.gif"
+            alt="W3C logo" id="head-logo-fallback"/></object>
+</div>
+
+<div class="slide cover">
+    Spring Data JPA
+</div>
+<div class="slide presentation">
+    <h1>Definition</h1>
+    <p>
+        <a href="https://projects.spring.io/spring-data-jpa/">Spring Data JPA webpage:</a><br/>
+        <q>
+            Spring Data JPA, part of the larger <b>Spring Data</b> family, makes it easy to easily implement <b>JPA</b>
+            based <b>repositories</b>.
+    </p>
+    <ul class="incremental">
+        <li>JPA - Java Persistence API
+
+            <div class="code-blocks">
+			
+			<pre><code class="java">
+@Entity
+@Table("d_item")
+public class GIMItem {
+			</code></pre>
+
+                <pre><code class="java">private EntityManager em;
+
+@Transactional
+public void doStuff() {
+  em.find(Item.class, 123456L);
+  em.createQuery("select i from GIMItem i where i.freeText is not null")
+    .getResultList();
+}				</code></pre>
+            </div>
+            In Syncron, basically synonymous with Hibernate.
+        </li>
+
+        <li>Spring Data <b>JPA</b>
+            <p>There are 20+ other modules: Spring Data <b>JDBC</b>, Spring Data <b>DynamoDB</b>, Spring Data <b>Elasticsearch</b>
+            </p>
+        </li>
+    </ul>
+</div>
+
+
+<div class="slide">
+    <h1>The Repository pattern</h1>
+    <p>
+        In Domain Driven Design, our Java objects should map directly to entities, but how do you "select * from Item"
+        in DDD?
+    </p>
+    <ul class="incremental">
+        <li>Repository: a Collection-like interface
+            <div class="code-blocks">
+<pre><code class="java">public interface GIMItemRepository {
+  Optional&lt;GIMItem> findById(Long id);
+  List&lt;GIMItem> findAll(String code);
+  List&lt;GIMItem> findByCode(String code);
+  void persist(GIMItem item);
+}
+// This is not a Spring Data JPA repository
+</code></pre>
+
+                <span class="incremental">
+<pre><code class="java">public interface GIMItemRepository {
+  Optional&lt;GIMItem> findById(Long id);
+  List&lt;GIMItem> findAll(String code);
+  // Very inefficient
+  default List&lt;GIMItem> findByCode(String code) {
+    return findAll(code).stream()
+	  .filter(i -> i.getCode().equals(code))
+	  .collect(toList());
+  }
+  void persist(GIMItem item);
+}
+// This is not a Spring Data JPA repository
+</code></pre>
+</span>
+
+            </div>
+
+        </li>
+        <li>We are aware that there are queries</li>
+        <li>Implementation is provided by the data storage layer
+            <pre><code class="java">public class ItemRepositoryJPAImpl implements ItemRepository {
+  @PersistenceContext private EntityManager em;
+  @Override
+  public List&lt;GIMItem> findByCode(String code) {
+    return em.createQuery("select i from GIMItem i where i.code = :code")
+	  .setParameter("code", code)
+	  .getResultList();
+  }
+}
+// This is not a Spring Data JPA repository
+</code></pre>
+        </li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>DAO vs Repository</h1>
+    <ul class="incremental">
+        <li><b>Data Access Object:</b> Abstracts and encapsulates access to the storage mechanism</p></li>
+        <li><b>Repository:</b> Abstracts and encapsulates access to the storage mechanism</li>
+        <li><b>Repository</b> talks in domain terms(entities). <b>DAO</b> talks in storage terms.
+            <div class="code-blocks">
+<pre><code class="java">OrderRepository {
+  List&lt;Order> findOrdersWhereTotalPriceBreaksCustomerLimits();
+}</code></pre>
+                <pre><code class="java">OrderDAO {
+  void recalculateDBStatistics();
+}</code></pre>
+            </div>
+        </li>
+        <li><b>Dependency inversion principle</b> is essential to the <b>Repository</b> pattern
+            <ul>
+                <li>Business code invokes repository methods, but the <b>called</b> code depends on the <b>calling</b>
+                    code
+                </li>
+                <li>Domain code controls repository interface</li>
+                <li>Storage layer implements whatever the domain layer requires</li>
+            </ul>
+        </li>
+        <li>A <b>repository</b> <b>IS</b> a collection
+            <pre><code class="java">NotReallyARepository {
+  List&lt;Apples> findAllApples();
+  List&lt;Oranges> findAllOranges();
+}</code></pre>
+        </li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>DAO vs Repository in GIM</h1>
+    <ul class="incremental">
+        <li>DAOs in GIM are mixed</li>
+        <li>No inversion of control</li>
+        <li>DAOs in GIM do contain Business Logic: ArchiveOrderLineDAO.java</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Spring Data JPA - basic problem</h1>
+    <p>
+        The Repository patterns is an OO and DDD way of separating the business logic from data base storage.
+        The gods of well designed software are pleased.
+    <pre><code class="java">public class GIMItemRepositoryJPAImpl implements GIMItemRepository {
+  @PersistenceContext private EntityManager em;	
+  
+  @Override
+  public List&lt;GIMItem> findByCode(String code) {
+    return em.createQuery("select i from GIMItem i where i.code = :code")
+      .setParameter("code", code)
+	  .getResultList();
+}
+// This is not a Spring Data JPA repository
+</code></pre>
+    </p>
+    <ul class="incremental">
+        <li>A lot of coding</li>
+        <li>Implementations are "obvious" and repetitive</li>
+        <li>Spring Data JPA provides magic glue, which generates repositories that work as expected (by convention)</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Spring Data JPA - basic features</h1>
+    <p>How to implement findByCode(String) in Spring Data JPA?</p>
+    <ol class="incremental">
+        <li>Add the library to the classpath:
+            <div class="code-blocks">
+<pre><code>&lt;dependency>
+    &lt;groupId>org.springframework.data&lt;/groupId>
+    &lt;artifactId>spring-data-jpa&lt;/artifactId>
+&lt;/dependency>
+</code></pre>
+
+                <pre><code>&lt;dependency>
+    &lt;groupId>org.springframework.boot&lt;/groupId>
+    &lt;artifactId>spring-boot-starter-data-jpa&lt;/artifactId>
+&lt;/dependency>
+</code></pre>
+            </div>
+        </li>
+
+        <li>Enable it in Spring with @EnableJpaRepositories:
+            <pre><code class="java">@SpringBootApplication
+/*
+ * Put this annotation on any configuration class.
+ */
+@EnableJpaRepositories
+public class Application {
+</code></pre>
+        </li>
+        <li>Define the interface, extending JpaRepository&lt;ENTITY, ENTITY_ID>:
+            <pre><code class="java">public interface Example1Repository extends JpaRepository&lt;Item, Long> {
+    List&lt;Item> findByCode(String code);
+}
+</code></pre>
+        <li>That's all. Seriously.</li>
+    </ol>
+</div>
+
+<div class="slide">
+    <h1>Query derived from method name</h1>
+    <ul>
+        <li>find...By...., read...By...., query...By...., get...By.... all translate into queries:
+            <pre><code class="java">public interface Example2Repository extends JpaRepository&lt;Item, Long> {
+    List&lt;Item> findByCode(String code);
+    List&lt;Item> readByCode(String code);
+    List&lt;Item> queryByCode(String code);
+    List&lt;Item> getWhateverByCode(String code);
+    Item readOneByCode(String code);
+
+    static void main(String[] args) {
+        Example2Repository repository = getBean(Example2Repository.class);
+        System.out.println(repository.findByCode("I-1"));
+        System.out.println(repository.readByCode("I-2"));
+        System.out.println(repository.queryByCode("I-3"));
+        System.out.println(repository.getWhateverByCode("I-4"));
+        //This code is unique
+        System.out.println(repository.readOneByCode("I-10"));
+        // This throws NonUniqueResultException
+        System.out.println(repository.readOneByCode("I-1"));
+    }
+}</code></pre>
+        <li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Operators in method name</h1>
+    <ul>
+        <li>A lot of operators: GreaterThan, IsTrue, Between, StartingWith. etc.
+            Check out the <a
+                    href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#_supported_query_keywords">documentation</a>.
+            <pre><code class="java">public interface Example3Repository extends JpaRepository&lt;Item, Long> {
+    List&lt;Item> findByStockLevelGreaterThanEqual(int minimumStockLevel);
+
+    static void main(String[] args) {
+        Example3Repository repository = getBean(Example3Repository.class);
+        System.out.println(repository.findByStockLevelGreaterThanEqual(16));
+    }
+}
+</code></pre>
+        <li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Operators in method name - ignore case</h1>
+    <ul>
+        <li>IgnoreCase
+            <pre><code class="java">public interface Example4Repository extends JpaRepository&lt;Item, Long> {
+    List&lt;Item> findByCodeStartsWithIgnoreCase(String minimumCode);
+
+    static void main(String[] args) {
+        Example4Repository repository = getBean(Example4Repository.class);
+        System.out.println(repository.findByCodeStartsWithIgnoreCase("i"));
+    }
+}</code></pre>
+        <li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Multi level properties</h1>
+    <ul>
+        <li>Multi level properties are supported. Joins are added correctly:
+            <pre><code class="java">public interface Example5Repository extends JpaRepository&lt;Item, Long> {
+    List&lt;Item> findByWarehouseCode(String warehouseCode);
+
+    static void main(String[] args) {
+        Example5Repository repository = getBean(Example5Repository.class);
+        System.out.println(repository.findByWarehouseCode("WH-2"));
+    }
+}</code></pre>
+        <li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Null handling</h1>
+</div>
+
+</body>
+</html>
