@@ -352,7 +352,7 @@ public void doStuff() {
 
 <div class="slide">
     <h1>Spring Data JPA - basic features</h1>
-    <p>How to implement findByCode(String) in Spring Data JPA?</p>
+    <p>How to implement <code>findByCode(String)</code> in Spring Data JPA?</p>
     <ol class="incremental">
         <li>Add the library to the classpath:
             <div class="code-blocks">
@@ -656,7 +656,93 @@ public class Item {</code></pre>
     </div>
 
 <div class="slide">
-    <h1>Pagination</h1>
+    <h1>Pagination - simple limit in method name</h1>
+    <p>Add "top"+X or "first"+X before the first "By".
+        "OrderBy" + property at the end.
+        "Desc" for reversed order.</p>
+            <pre><code class="java">public interface Example12Repository extends JpaRepository&lt;Item, Long> {
+    List&lt;Item> findTop3ByOrderByStockLevelDesc();
+    List&lt;Item> findFirst3ByCodeOrderByStockLevelDesc(String code);
+
+    static void main(String[] args) {
+        Example12Repository repository = getBean(Example12Repository.class);
+        System.out.println(repository.findTop3ByOrderByStockLevelDesc());
+		System.out.println(repository.findFirst3ByCodeOrderByStockLevelDesc("I-1"));
+    }
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h1>Pagination - dynamically created page parameters</h1>
+    <ul>
+        <li>Argument of type <code>org.springframework.data.domain.Pageable</code> specifies page and page size</li>
+        <li><code>org.springframework.data.domain.Page&lt;T></code> contains the result</li>
+        <li><code>Page&lt;T&gt;</code> also contains the total count</li>
+    </ul><pre><code class="java">public interface Example13Repository extends JpaRepository&lt;Item, Long> {
+    Page&lt;Item> findByWarehouseCodeOrderByCode(String warehouseCode, Pageable pageable);
+
+    static void main(String[] args) {
+        Example13Repository repository = getBean(Example13Repository.class);
+		Page&lt;Item> page = repository.findByWarehouseCodeOrderByCode("WH-1",
+				PageRequest.of(/* zero-based */2, 3));
+		System.out.println(page);
+		System.out.println(page.getContent());
+		System.out.println(page.getTotalElements());
+    }
+}</code></pre>
+    </ul>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Pagination - avoiding count</h1>
+    <ul>
+        <li>count(*) in paging is costly</li>
+        <li>Use <code>org.springframework.data.domain.Slice&lt;T></code> instead of <code>Page</code></li>
+        <li><code>Page</code> extends <code>Slice</code></li>
+    </ul><pre><code class="java">public interface Example14Repository extends JpaRepository&lt;Item, Long> {
+    Slice&lt;Item> findByWarehouseCodeOrderByCode(String warehouseCode, Pageable pageable);
+
+    static void main(String[] args) {
+        Example14Repository repository = getBean(Example14Repository.class);
+		Slice&lt;Item> slice = repository.findByWarehouseCodeOrderByCode("WH-1",
+				PageRequest.of(/* zero-based */2, 3));
+		System.out.println(slice);
+		System.out.println(slice.getContent());
+    }
+}
+</code></pre>
+</div>
+
+<div class="slide">
+    <h1>Pagination - REST support</h1>
+    <ul>
+        <li><code>@EnableSpringDataWebSupport</code> on any configuration class</li>
+        <li>Method parameter of type <code>Pageable</code> is constructed standard request parameters
+            <ul>
+                <li><code>page</code></li>
+                <li><code>size</code> - defaults to 20</li>
+                <li><code>sort</code> - sort property name ",desc" to revert order</li>
+            </ul>
+        </li>
+    </ul><pre><code class="java">@EnableSpringDataWebSupport
+@RestController
+public class Example15 {
+	@Autowired Example14Repository repository;
+
+	@RequestMapping(method = RequestMethod.GET, path = "/warehouses/{warehouseCode}")
+	@ResponseBody List&lt;Item>
+	itemsByWarehouseCode(@PathVariable String warehouseCode, Pageable pageable) {
+		return repository.findByWarehouseCodeOrderByCode(warehouseCode, pageable)
+				.getContent();
+	}
+
+	public static void main(String[] args) {
+		getBean(Example15.class);
+	}
+}
+</code></pre>
+
 </div>
 
 <div class="slide">

@@ -11,8 +11,7 @@ import java.util.List;
 
 public class Example11RepositoryCustomImpl implements Example11RepositoryCustom {
 	@PersistenceContext	EntityManager em;
-	@Autowired
-	Example11Repository repository;
+	@Autowired Example11Repository repository;
 
 	@Override
 	public List<Item> myItems() {
