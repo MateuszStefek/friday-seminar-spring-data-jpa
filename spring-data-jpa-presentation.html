@@ -241,7 +241,7 @@ public void doStuff() {
             <div class="code-blocks">
 <pre><code class="java">public interface GIMItemRepository {
   Optional&lt;GIMItem> findById(Long id);
-  List&lt;GIMItem> findAll(String code);
+  List&lt;GIMItem> findAll();
   List&lt;GIMItem> findByCode(String code);
   void persist(GIMItem item);
 }
@@ -251,7 +251,7 @@ public void doStuff() {
                 <span class="incremental">
 <pre><code class="java">public interface GIMItemRepository {
   Optional&lt;GIMItem> findById(Long id);
-  List&lt;GIMItem> findAll(String code);
+  List&lt;GIMItem> findAll();
   // Very inefficient
   default List&lt;GIMItem> findByCode(String code) {
     return findAll(code).stream()
@@ -268,7 +268,7 @@ public void doStuff() {
 
         </li>
         <li>We are aware that there are queries</li>
-        <li>Implementation is provided by the data storage layer
+        <li>Implementation is provided by the infrastructure infrastructure layer
             <pre><code class="java">public class ItemRepositoryJPAImpl implements ItemRepository {
   @PersistenceContext private EntityManager em;
   @Override
@@ -305,7 +305,7 @@ public void doStuff() {
                     code
                 </li>
                 <li>Domain code controls repository interface</li>
-                <li>Storage layer implements whatever the domain layer requires</li>
+                <li>Infrastructure layer implements whatever the domain layer requires</li>
             </ul>
         </li>
         <li>A <b>repository</b> <b>IS</b> a collection
