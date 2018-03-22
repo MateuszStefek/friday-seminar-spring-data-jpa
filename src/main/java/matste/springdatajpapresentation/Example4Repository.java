@@ -7,11 +7,11 @@ import java.util.List;
 import static matste.springdatajpapresentation.Application.getBean;
 
 public interface Example4Repository extends JpaRepository<Item, Long> {
-    List<Item> findByCodeStartsWithIgnoreCase(String minimumCode);
+	List<Item> findByCodeStartsWithIgnoreCase(String minimumCode);
 
-    static void main(String[] args) {
-        Example4Repository repository = getBean(Example4Repository.class);
-        System.out.println(repository.findByCodeStartsWithIgnoreCase("i"));
-    }
+	static void main(String[] args) {
+		var repository = getBean(Example4Repository.class);
+		System.out.println(repository.findByCodeStartsWithIgnoreCase("i"));
+	}
 }
 

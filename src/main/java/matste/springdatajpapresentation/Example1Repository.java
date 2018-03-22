@@ -7,9 +7,10 @@ import java.util.List;
 import static matste.springdatajpapresentation.Application.getBean;
 
 public interface Example1Repository extends JpaRepository<Item, Long> {
-    List<Item> findByCode(String code);
+	List<Item> findByCode(String code);
 
-    static void main(String[] args) {
-        System.out.println(getBean(Example1Repository.class).findByCode("I-2"));
-    }
+	static void main(String[] args) {
+		var repository = getBean(Example1Repository.class);
+		System.out.println(repository.findByCode("I-2"));
+	}
 }

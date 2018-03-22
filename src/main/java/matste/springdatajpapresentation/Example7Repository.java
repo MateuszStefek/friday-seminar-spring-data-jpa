@@ -8,23 +8,24 @@ import java.util.Optional;
 import static matste.springdatajpapresentation.Application.getBean;
 
 public interface Example7Repository extends JpaRepository<Item, Long> {
-    List<Item> findOldStyleByDescription(String description);
-    List<Item> findByDescription(Optional<String> description);
+	List<Item> findOldStyleByDescription(String description);
 
-    static void main(String[] args) {
-        Example7Repository repository = getBean(Example7Repository.class);
+	List<Item> findByDescription(Optional<String> description);
+
+	static void main(String[] args) {
+		var repository = getBean(Example7Repository.class);
 
 		//from item item0_ where item0_.description is null
-        System.out.println(repository.findOldStyleByDescription(null));
+		System.out.println(repository.findOldStyleByDescription(null));
 
 		//from item item0_ where item0_.description=?
 		System.out.println(repository.findOldStyleByDescription("A"));
 
-        //from item item0_ where item0_.description is null
-        System.out.println(repository.findByDescription(Optional.empty()));
+		//from item item0_ where item0_.description is null
+		System.out.println(repository.findByDescription(Optional.empty()));
 
-        //from item item0_ where item0_.description=?
-        System.out.println(repository.findByDescription(Optional.of("Ala ma kota")));
-    }
+		//from item item0_ where item0_.description=?
+		System.out.println(repository.findByDescription(Optional.of("Ala ma kota")));
+	}
 }
 

@@ -7,13 +7,14 @@ import java.util.List;
 import static matste.springdatajpapresentation.Application.getBean;
 
 public interface Example12Repository extends JpaRepository<Item, Long> {
-    List<Item> findTop3ByOrderByStockLevelDesc();
+	List<Item> findTop3ByOrderByStockLevelDesc();
+
 	List<Item> findFirst3ByCodeOrderByStockLevelDesc(String code);
 
-    static void main(String[] args) {
-        Example12Repository repository = getBean(Example12Repository.class);
-        System.out.println(repository.findTop3ByOrderByStockLevelDesc());
+	static void main(String[] args) {
+		var repository = getBean(Example12Repository.class);
+		System.out.println(repository.findTop3ByOrderByStockLevelDesc());
 		System.out.println(repository.findFirst3ByCodeOrderByStockLevelDesc("I-1"));
-    }
+	}
 }
 

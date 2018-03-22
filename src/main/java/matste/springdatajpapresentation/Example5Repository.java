@@ -7,11 +7,11 @@ import java.util.List;
 import static matste.springdatajpapresentation.Application.getBean;
 
 public interface Example5Repository extends JpaRepository<Item, Long> {
-    List<Item> findByWarehouseCode(String warehouseCode);
+	List<Item> findByWarehouseCode(String warehouseCode);
 
-    static void main(String[] args) {
-        Example5Repository repository = getBean(Example5Repository.class);
-        System.out.println(repository.findByWarehouseCode("WH-2"));
-    }
+	static void main(String[] args) {
+		var repository = getBean(Example5Repository.class);
+		System.out.println(repository.findByWarehouseCode("WH-2"));
+	}
 }
 
